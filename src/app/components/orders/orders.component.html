@@ -1,0 +1,56 @@
+<div fxFill fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex fxLayout="column">
+        <mat-toolbar fxFlex="32px" color="accent">
+            <h4>Aufträge</h4>
+        </mat-toolbar>
+        <div fxFlex fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex="92%" fxLayout="column">
+                <div fxFlex="98%" fxLayout="column">
+                    <div fxLayout="row" fxLayoutGap="10px">
+                        <div fxFlexAlign="center">
+                            <button mat-raised-button color="accent" routerLink="/order">Neu</button>
+                        </div>
+                        <mat-form-field fxFlex>
+                            <mat-label>Filter</mat-label>
+                            <input matInput name="filter" (keyup)="applyFilter($event)" placeholder="Name eingeben"
+                                #input>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mat-elevation-z8" fxLayout="column">
+                        <mat-table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc"
+                            matSortDisableClear>
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <span class="text-truncate"> {{row.name}}</span>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="created">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Erstellt </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.created | date:'dd.MM.YYYY HH:mm'}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="updated">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Aktualisiert </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.updated | date:'dd.MM.YYYY HH:mm'}} </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="positions">
+                                <mat-header-cell *matHeaderCellDef> Positionen </mat-header-cell>
+                                <mat-cell *matCellDef="let row"> {{row.positions.length}} </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row [title]="row.name" [routerLink]="['/order/', row.id]"
+                                *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+
+                        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Wähle Seite"></mat-paginator>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

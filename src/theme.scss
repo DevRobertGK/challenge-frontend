@@ -1,0 +1,84 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$primary: mat.define-palette(
+    (
+        50: #f3e2e4,
+        100: #e1b8ba,
+        200: #cd888d,
+        300: #b9585f,
+        400: #aa353c,
+        500: #9b111a,
+        600: #930f17,
+        700: #890c13,
+        800: #7f0a0f,
+        900: #6d0508,
+        A100: #ff9d9f,
+        A200: #ff6a6c,
+        A400: #ff373a,
+        A700: #ff1e21,
+        contrast: (
+            50: #000000,
+            100: #000000,
+            200: #000000,
+            300: #ffffff,
+            400: #ffffff,
+            500: #ffffff,
+            600: #ffffff,
+            700: #ffffff,
+            800: #ffffff,
+            900: #ffffff,
+            A100: #000000,
+            A200: #000000,
+            A400: #ffffff,
+            A700: #ffffff,
+        ),
+    )
+);
+$accent: mat.define-palette((
+    50 : #e9eaeb,
+    100 : #c9cbce,
+    200 : #a5a9ad,
+    300 : #80878c,
+    400 : #656d74,
+    500 : #4a535b,
+    600 : #434c53,
+    700 : #3a4249,
+    800 : #323940,
+    900 : #22292f,
+    A100 : #7ac2ff,
+    A200 : #47abff,
+    A400 : #1494ff,
+    A700 : #0088f9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+));
+$warn: mat.define-palette(mat.$red-palette);
+$success: mat.define-palette(mat.$green-palette);
+$theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $primary,
+            accent: $accent,
+            warn: $warn,
+            success: $success,
+        ),
+    )
+);
+@include mat.all-component-themes($theme);
+@include mat.core-theme($theme);
+@import "~@angular/cdk/overlay-prebuilt.css";

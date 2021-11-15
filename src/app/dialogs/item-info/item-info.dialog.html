@@ -1,0 +1,35 @@
+<div fxFill fxLayout="column">
+    <mat-toolbar fxFlex="32px" color="accent">
+        <h4>Artikel</h4>
+    </mat-toolbar>
+    <mat-card>
+        <mat-card-content fxFlex fxLayout="column" fxLayoutGap="10px grid">
+            <div>{{data.name}}</div>
+            <div>{{data.description}}</div>
+            <div fxLayout="row" fxLayoutGap="5px" fxFlexOffset="10px">
+                <div fxLayout="column">
+                    <div>
+                        Auf Lager:
+                    </div>
+                    <div>
+                        Erstellt:
+                    </div>
+                    <div>
+                        Aktualisiert:
+                    </div>
+                </div>
+                <div fxLayout="column">
+                    <div>
+                        {{data.stock}} {{data.unit}}
+                    </div>
+                    <div>
+                        {{data.created | date:'dd.MM.YYYY HH:mm'}}
+                    </div>
+                    <div>
+                        {{data.updated | date:'dd.MM.YYYY HH:mm'}}
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

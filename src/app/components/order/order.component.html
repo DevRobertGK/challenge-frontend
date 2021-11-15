@@ -1,0 +1,102 @@
+<form fxFill (ngSubmit)="onSubmit()" [formGroup]="dataForm" class="component" fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex fxLayout="column">
+        <mat-toolbar fxFlex="32px" color="accent" fxLayout="row">
+            <button mat-icon-button (click)="goBack()" type="button">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <h4><span *ngIf="!id">Neuer </span>Auftrag</h4>
+        </mat-toolbar>
+        <div class="content" fxFlex fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex.lt-sm="98%" fxFlex.lt-md="80%" fxFlex.lt-lg="65%" fxFlex="50%" fxLayout="column"
+                fxLayoutGap="20px">
+                <mat-card fxFlexOffset="20px" fxLayout="column">
+                    <mat-card-content fxFlex fxLayout="column" fxLayoutGap="10px grid">
+                        <mat-form-field fxFlex="100% 0 0">
+                            <mat-label>Auftragsname</mat-label>
+                            <textarea #name matInput cdkTextareaAutosize placeholder="Auftragsname"
+                                formControlName="name" max="255" required></textarea>
+                            <mat-hint>{{name.value.length}} / 255</mat-hint>
+                            <mat-error *ngIf="hasError('name','required')">Name wird benötigt</mat-error>
+                        </mat-form-field>
+                        <div>
+                            <button type="button" mat-raised-button color="accent" (click)="onItemSelect()">
+                                Position hinzufügen
+                            </button>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutGap="5px grid">
+                            <div fxFlex="33%" formArrayName="positions" *ngFor="let position of positions; let i=index">
+                                <mat-card fxFlex>
+                                    <mat-card-content fxLayout="column">
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div class="break-all">{{position.item.name}}</div>
+                                            <div fxLayout="row wrap">
+                                                <div>
+                                                    <button mat-icon-button type="button"
+                                                        (click)="itemInfo(position.item)" color="primary">
+                                                        <mat-icon>info</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div>
+                                                    <button mat-icon-button type="button" (click)="onDeletePosition(i)"
+                                                        color="primary">
+                                                        <mat-icon>remove_circle_outline</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="center baseline" fxLayoutGap="5px">
+                                            <mat-form-field fxFlex [formGroup]="positionsArrayControls[i]">
+                                                <mat-label>Anzahl</mat-label>
+                                                <input matInput type="number" name="amount" placeholder="Anzahl" min="1"
+                                                    [max]="position.item.stock" formControlName="amount" required>
+                                                <mat-error *ngIf="hasError('stock','min')">Anzahl wird benötigt
+                                                </mat-error>
+                                                <span matSuffix>&nbsp; / {{position.item.stock}}
+                                                    {{position.item.unit}}</span>
+                                            </mat-form-field>
+                                        </div>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+
+                        <div *ngIf="data" fxLayout="row" fxLayoutGap="5px">
+                            <div fxLayout="column">
+                                <div>
+                                    Erstellt:
+                                </div>
+                                <div>
+                                    Aktualisiert:
+                                </div>
+                            </div>
+                            <div fxLayout="column">
+
+                                <div>
+                                    {{data.created | date:'dd.MM.YYYY HH:mm'}}
+                                </div>
+                                <div>
+                                    {{data.updated | date:'dd.MM.YYYY HH:mm'}}
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions fxLayout="column" fxLayoutGap="10px">
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <div fxFlex>
+                                <button fxFlex mat-raised-button type="button" (click)="onDelete()" color="accent"
+                                    [disabled]="!id">Löschen</button>
+                            </div>
+                            <div fxFlex>
+                                <button fxFlex mat-raised-button type="submit" color="primary">Speichern</button>
+                            </div>
+                        </div>
+                        <div>
+                            <button fxFlex mat-raised-button type="button" (click)="onRequest()"
+                                [disabled]="!id">Auslagern</button>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</form>
